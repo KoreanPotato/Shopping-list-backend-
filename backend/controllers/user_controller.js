@@ -61,4 +61,4 @@ const getAllUsers = async (req, res) => {
 
 
 
-module.exports = { registerUser, loginUser, getAllUsers};
+module.exports = { registerUser, loginUser, getAllUsers };
