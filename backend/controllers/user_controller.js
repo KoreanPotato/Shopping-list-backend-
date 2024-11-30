@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/user_model');
+const User = require('../schemas/user_schema');
 
 
 const hashed = async (data) => {
@@ -9,15 +9,14 @@ return hashedData
 }
 
 const registerUser = async (req, res) => {
-  const { name, email, password, phone } = req.body; 
+  const { username, password, email } = req.body; 
   const hashedPassword = await hashed(password)
 
   try {
     const user = new User({
-      name,
+      username,
       email,
       password: hashedPassword,
-      phone
     });
 
     const savedUser = await user.save();
