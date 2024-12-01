@@ -10,6 +10,7 @@ const getAllLists = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' })    }
 }
 
+
 const getList = async (req, res) => {
     const {id} = req.params
     try{
@@ -19,18 +20,31 @@ const getList = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' })    }
 }
 
-const createList = async (req, res) => {
-    const {name} = req.body
-    const {id} = req.params
-    try {
-        const list = new List ({name, owner: id});
 
+const createList = async (req, res) => {
+    const { name } = req.body;
+    const { id } = req.params; 
+
+    try {
+        const user = await User.findById(id); 
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const list = new List({ name, owner: id });
         const savedList = await list.save();
-        res.status(201).json({ message: `List ${name} was created`})
+
+        user.shoppingListsOwner.push(savedList._id);
+        await user.save();
+
+        res.status(201).json({ message: `List ${name} was created`, list: savedList });
     } catch (error) {
-        res.error.json({message: err.message})
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
-}
+};
+
+
 
 const deleteList = async (req, res) => {
     const { id, userId } = req.params; 
@@ -54,19 +68,30 @@ const deleteList = async (req, res) => {
 
 
 const addMemberToList = async (req, res) => {
-    const { listId, userId } = req.params; 
-    try {
-        const updatedList = await List.findByIdAndUpdate(
-            listId,
-            { $addToSet: { members: userId } }, 
-            { new: true } 
-        );
+    const { listId, userId } = req.params;
 
-        if (!updatedList) {
+    try {
+        const list = await List.findById(listId);
+        const user = await User.findById(userId);
+
+        if (!list) {
             return res.status(404).json({ message: 'List not found' });
         }
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
-        res.status(200).json({ message: `User ${userId} was added to the list`, list: updatedList });
+        if (!list.members.includes(userId)) {
+            list.members.push(userId);
+            await list.save();
+        }
+
+        if (!user.shoppingListsMember.includes(listId)) {
+            user.shoppingListsMember.push(listId);
+            await user.save();
+        }
+
+        res.status(200).json({ message: `User ${userId} was added to the list`, list });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });

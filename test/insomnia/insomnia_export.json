@@ -1,0 +1,186 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2023-12-01T00:00:00.000Z",
+    "__export_source": "insomnia.desktop.app:v2023.6.0",
+    "resources": [
+      {
+        "_type": "workspace",
+        "_id": "wrk_1",
+        "name": "Shopping List API",
+        "description": "Workspace for testing Shopping List API endpoints"
+      },
+      {
+        "_type": "environment",
+        "_id": "env_1",
+        "parentId": "wrk_1",
+        "name": "Base Environment",
+        "data": {
+          "base_url": "http://localhost:3000/api"
+        }
+      },
+      {
+        "_type": "request",
+        "_id": "req_create_list",
+        "parentId": "wrk_1",
+        "name": "Create List",
+        "method": "POST",
+        "url": "{{ base_url }}/shoppingList/create/:id",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mimeType": "application/json",
+          "text": "{ \"name\": \"TESCOMA\" }"
+        }
+      },
+      {
+        "_type": "request",
+        "_id": "req_delete_list",
+        "parentId": "wrk_1",
+        "name": "Delete List",
+        "method": "DELETE",
+        "url": "{{ base_url }}/shoppingList/delete/:id/:userId",
+        "headers": [],
+        "parameters": [],
+        "body": {}
+      },
+      {
+        "_type": "request",
+        "_id": "req_get_all_lists",
+        "parentId": "wrk_1",
+        "name": "Get All Lists",
+        "method": "GET",
+        "url": "{{ base_url }}/shoppingLists",
+        "headers": [],
+        "parameters": [],
+        "body": {}
+      },
+      {
+        "_type": "request",
+        "_id": "req_get_list",
+        "parentId": "wrk_1",
+        "name": "Get List",
+        "method": "GET",
+        "url": "{{ base_url }}/shoppingList/:id",
+        "headers": [],
+        "parameters": [],
+        "body": {}
+      },
+      {
+        "_type": "request",
+        "_id": "req_add_member",
+        "parentId": "wrk_1",
+        "name": "Add Member to List",
+        "method": "PUT",
+        "url": "{{ base_url }}/list/:listId/addMember/:userId",
+        "headers": [],
+        "parameters": [],
+        "body": {}
+      },
+      {
+        "_type": "request",
+        "_id": "req_remove_member",
+        "parentId": "wrk_1",
+        "name": "Remove Member from List",
+        "method": "DELETE",
+        "url": "{{ base_url }}/list/:listId/removeMember/:userId",
+        "headers": [],
+        "parameters": [],
+        "body": {}
+      },
+      {
+        "_type": "request",
+        "_id": "req_add_item_to_list",
+        "parentId": "wrk_1",
+        "name": "Add Item to List",
+        "method": "POST",
+        "url": "{{ base_url }}/list/:listId/item",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mimeType": "application/json",
+          "text": "{ \"name\": \"Milk\", \"resolved\": false }"
+        }
+      },
+      {
+        "_type": "request",
+        "_id": "req_remove_item_from_list",
+        "parentId": "wrk_1",
+        "name": "Remove Item from List",
+        "method": "DELETE",
+        "url": "{{ base_url }}/item/:itemId",
+        "headers": [],
+        "parameters": [],
+        "body": {}
+      },
+      {
+        "_type": "request",
+        "_id": "req_register_user",
+        "parentId": "wrk_1",
+        "name": "Register User",
+        "method": "POST",
+        "url": "{{ base_url }}/register",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mimeType": "application/json",
+          "text": "{ \"username\": \"testuser\", \"email\": \"test@example.com\", \"password\": \"password123\" }"
+        }
+      },
+      {
+        "_type": "request",
+        "_id": "req_login_user",
+        "parentId": "wrk_1",
+        "name": "Login User",
+        "method": "POST",
+        "url": "{{ base_url }}/login",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mimeType": "application/json",
+          "text": "{ \"email\": \"test@example.com\", \"password\": \"password123\" }"
+        }
+      },
+      {
+        "_type": "request",
+        "_id": "req_get_all_users",
+        "parentId": "wrk_1",
+        "name": "Get All Users",
+        "method": "GET",
+        "url": "{{ base_url }}/users",
+        "headers": [],
+        "parameters": [],
+        "body": {}
+      },
+      {
+        "_type": "request",
+        "_id": "req_get_all_items_for_list",
+        "parentId": "wrk_1",
+        "name": "Get All Items for List",
+        "method": "GET",
+        "url": "{{ base_url }}/list/:listId/items",
+        "headers": [],
+        "parameters": [],
+        "body": {}
+      }
+      
+      
+    ]
+  }
+  

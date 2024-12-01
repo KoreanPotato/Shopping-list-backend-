@@ -1,0 +1,118 @@
+A mongo db database has been integrated. 
+The database uses hashed user password data using bcrypt.
+
+if test data is required =>
+
+users:
+    {
+		"_id": "674c9544da1218e483dc0121",
+		"username": "Unicorn",
+		"password": "$2b$10$y/eeCRTCBvrgIS04fmN6lur0gZfb4pPNgpX7we3kGezqvoN4JsaYm",
+		"email": "Unicorn@uni.com",
+		"shoppingListsOwner": [],
+		"shoppingListsMember": [],
+		"__v": 0
+	},
+	{
+		"_id": "674c9550da1218e483dc0123",
+		"username": "test 1",
+		"password": "$2b$10$aBzjva8HZMwfFzfSx8C1puKKjyCPtyQsB3xqYqyf0dqh4K8Xh08B.",
+		"email": "Unicorn@uni.com",
+		"shoppingListsOwner": [
+			"674cd099880639cec7667f5b"
+		],
+		"shoppingListsMember": [],
+		"__v": 1
+	};
+
+
+
+shopping list:
+    {
+		"_id": "674cabfd7b669ceae62eda8f",
+		"name": "TESCO",
+		"owner": "674cab737b669ceae62eda8d",
+		"members": [
+			"674c9544da1218e483dc0121"
+		],
+		"__v": 5,
+		"items": [
+			"674cb065a5ff3e893b4b0329",
+			"674cb06ca5ff3e893b4b032d",
+			"674cb075a5ff3e893b4b0331",
+			"674cb078a5ff3e893b4b0335",
+			"674cb0caa5ff3e893b4b0339"
+		]
+	},
+	{
+		"_id": "674cac077b669ceae62eda91",
+		"name": "DM",
+		"owner": "674cab737b669ceae62eda8d",
+		"members": [],
+		"__v": 6,
+		"items": [
+			"674cafdaa5ff3e893b4b0311",
+			"674cb015a5ff3e893b4b0315",
+			"674cb01ea5ff3e893b4b0319",
+			"674cb037a5ff3e893b4b031d",
+			"674cb043a5ff3e893b4b0321",
+			"674cb051a5ff3e893b4b0325"
+		]
+	},
+	{
+		"_id": "674cac187b669ceae62eda93",
+		"name": "SMARTY CZ",
+		"owner": "674cb3832371688633437980",
+		"members": [
+			"674c9550da1218e483dc0123"
+		],
+		"__v": 3,
+		"items": [
+			"674cb0d6a5ff3e893b4b033d",
+			"674cb0dfa5ff3e893b4b0341",
+			"674cb0eda5ff3e893b4b0345"
+		]
+	}
+
+
+items:
+    {
+	"message": "Items for list: TESCO",
+	"items": [
+		{
+			"_id": "674cb065a5ff3e893b4b0329",
+			"name": "bread",
+			"resolved": false,
+			"list": "674cabfd7b669ceae62eda8f",
+			"__v": 0
+		},
+		{
+			"_id": "674cb06ca5ff3e893b4b032d",
+			"name": "eggs",
+			"resolved": false,
+			"list": "674cabfd7b669ceae62eda8f",
+			"__v": 0
+		},
+		{
+			"_id": "674cb075a5ff3e893b4b0331",
+			"name": "water",
+			"resolved": false,
+			"list": "674cabfd7b669ceae62eda8f",
+			"__v": 0
+		},
+		{
+			"_id": "674cb078a5ff3e893b4b0335",
+			"name": "beer",
+			"resolved": false,
+			"list": "674cabfd7b669ceae62eda8f",
+			"__v": 0
+		},
+		{
+			"_id": "674cb0caa5ff3e893b4b0339",
+			"name": "meat",
+			"resolved": false,
+			"list": "674cabfd7b669ceae62eda8f",
+			"__v": 0
+		}
+	]
+}
