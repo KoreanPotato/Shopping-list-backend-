@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const listSchema = new mongoose.Schema ({
     name: {type: String, required: true},
     items: {type: String, ref:'Item'},
-    owner: { type: String, ref: 'User' }, 
+    owner: { type: String, required: true, ref: 'User' }, 
     members: [{ type: String, ref: 'User' }]
         
     

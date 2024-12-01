@@ -9,7 +9,7 @@ app.use(express.json());
 app.use('/api', userRoutes);
 app.use('/api', listRoutes)
 
-const db = 'mongodb+srv://Unicorn:482564@cluster0.ztujm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const db = 'mongodb+srv://Unicorn:482564@cluster0.ztujm.mongodb.net/ShoppingList?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose
     .connect(db)
@@ -20,21 +20,6 @@ const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
-
-// //reading data
-// const readData = () => {
-//   try {
-//     const data = fs.readFileSync(DATA_FILE, 'utf8');
-//     return JSON.parse(data || '{}');
-//   } catch (err) {
-//     return { users: [], lists: [], items: [] };
-//   }
-// };
-
-// // write dada
-// const writeData = (data) => {
-//   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
-// };
 
 
 // // create new list

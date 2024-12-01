@@ -12,11 +12,12 @@ const getAllLists = async (req, res) => {
 
 const createList = async (req, res) => {
     const {name} = req.body
+    const {id} = req.params
     try {
-        const list = new List ({name});
+        const list = new List ({name, owner: id});
 
         const savedList = await list.save();
-        res.status(201).json({ message: 'List created'})
+        res.status(201).json({ message: `List ${name} was created`})
     } catch (error) {
         res.error.json({message: err.message})
     }
@@ -30,7 +31,7 @@ const deleteList = async (req, res) => {
         if (!deletedList) {
             return res.status(404).json({ message: 'List not found' });
         }
-        res.status(201).json({ message:'list ${deletedList.name} was deleted'})
+        res.status(201).json({ message:`List ${deletedList.name} was deleted`})
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error' })
     }
