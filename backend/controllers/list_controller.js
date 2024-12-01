@@ -10,6 +10,15 @@ const getAllLists = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' })    }
 }
 
+const getList = async (req, res) => {
+    const {id} = req.params
+    try{
+        const requiredList = await List.findById(id)
+        res.status(201).json(requiredList)
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' })    }
+}
+
 const createList = async (req, res) => {
     const {name} = req.body
     const {id} = req.params
@@ -24,18 +33,75 @@ const createList = async (req, res) => {
 }
 
 const deleteList = async (req, res) => {
-    const { id } = req.params
-
+    const { id, userId } = req.params; 
     try {
-        const deletedList = await List.findByIdAndDelete(id)
-        if (!deletedList) {
+        const list = await List.findById(id);
+        if (!list) {
+            return res.status(404).json({ message: 'List not found' }); 
+        }
+
+        if (list.owner.toString() !== userId) {
+            return res.status(403).json({ message: 'You are not authorized to delete this list' });
+        }
+
+        await list.deleteOne(); 
+        res.status(200).json({ message: `List "${list.name}" was deleted` });
+    } catch (error) {
+        console.error(error); 
+        res.status(500).json({ message: 'Internal Server Error' }); 
+    }
+};
+
+
+const addMemberToList = async (req, res) => {
+    const { listId, userId } = req.params; 
+    try {
+        const updatedList = await List.findByIdAndUpdate(
+            listId,
+            { $addToSet: { members: userId } }, 
+            { new: true } 
+        );
+
+        if (!updatedList) {
             return res.status(404).json({ message: 'List not found' });
         }
-        res.status(201).json({ message:`List ${deletedList.name} was deleted`})
+
+        res.status(200).json({ message: `User ${userId} was added to the list`, list: updatedList });
     } catch (error) {
-        res.status(500).json({ message: 'Internal Server Error' })
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
+};
 
+
+const removeMemberFromList = async (req, res) => {
+    const { listId, userId } = req.params; 
+
+    try {
+        const updatedList = await List.findByIdAndUpdate(
+            listId,
+            { $pull: { members: userId } },
+            { new: true } 
+        );
+
+        if (!updatedList) {
+            return res.status(404).json({ message: 'List not found' });
+        }
+
+        res.status(200).json({ message: `User ${userId} was removed from the list`, list: updatedList });
+    } catch (error) {
+        console.error(error); 
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+
+
+module.exports = { 
+    createList, 
+    deleteList, 
+    getAllLists, 
+    getList,
+    addMemberToList, 
+    removeMemberFromList 
 }
-
-module.exports = { createList, deleteList, getAllLists }
