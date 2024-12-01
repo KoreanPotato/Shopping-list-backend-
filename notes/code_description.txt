@@ -1,5 +1,5 @@
-A mongo db database has been integrated. 
-The database uses hashed user password data using bcrypt.
+A "mongo db" database has been integrated. 
+The database uses hashed user password data using "bcrypt".
 
 if test data is required =>
 
