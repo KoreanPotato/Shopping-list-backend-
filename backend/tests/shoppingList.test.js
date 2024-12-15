@@ -82,6 +82,7 @@ describe('Shopping List API Tests', () => {
   });
   
 
+
 test('PATCH /api/shoppingList/update/:id - update list data', async () => {
     const list = await List.create({ name: 'tea', owner: testOwner });
   
@@ -110,6 +111,8 @@ test('PATCH /api/shoppingList/update/:id - update list data', async () => {
     expect(response.body.message).toBe('List not found');
   });
 
+
+
 test('DELETE /api/shoppingList/delete/:id/:userId - deleting list', async () => {
   const list = await List.create({ name: 'tea', owner: testOwner });
   const response = await request(app).delete(`/api/shoppingList/delete/${list._id}/${testOwner}`);
@@ -126,6 +129,8 @@ test('DELETE /api/shoppingList/delete/:id/:userId - unauthorized deletion', asyn
     expect(response.body.message).toBe('You are not authorized to delete this list');
   });
 
+
+  
 test('GET /api/shoppingList/:id - get one list', async () => {
     const list = await List.create({ name: 'Coffe', owner: testOwner });
     const response = await request(app).get(`/api/shoppingList/${list._id}`);
