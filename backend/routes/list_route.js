@@ -8,6 +8,7 @@ router.get('/shoppingLists', listController.getAllLists);
 router.get('/shoppingList/:id', listController.getList);
 router.put('/list/:listId/addMember/:userId', listController.addMemberToList);
 router.delete('/list/:listId/removeMember/:userId', listController.removeMemberFromList);
+router.patch('/shoppingList/update/:id', listController.updateList);
 
 
 module.exports = router

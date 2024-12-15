@@ -8,7 +8,7 @@ const getAllLists = async (req, res) => {
         res.status(201).json(allLists)
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error' })    }
-}
+};
 
 
 const getList = async (req, res) => {
@@ -18,7 +18,7 @@ const getList = async (req, res) => {
         res.status(201).json(requiredList)
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error' })    }
-}
+};
 
 
 const createList = async (req, res) => {
@@ -121,6 +121,32 @@ const removeMemberFromList = async (req, res) => {
 };
 
 
+const updateList = async (req, res) => {
+    const { name } = req.body;
+    const { id } = req.params
+        try {
+            if (!id) {
+                return res.status(400).json({ message: 'ID is required' });
+            }
+
+            if (!name) {
+                return res.status(400).json({ message: 'new name is required' });
+            }
+            
+        const updatedList = await List.findByIdAndUpdate(
+            id,
+            { $set: { name: name} },
+            { new: true, runValidators: true },
+        )
+                res.status(200).json({ message: `List ${name} was updated`, list: updatedList })
+
+    }
+    catch (error) {
+        console.error(error); 
+        res.status(500).json({ message: 'Internal Server Error'  });
+    }
+};
+
 
 module.exports = { 
     createList, 
@@ -128,5 +154,6 @@ module.exports = {
     getAllLists, 
     getList,
     addMemberToList, 
-    removeMemberFromList 
+    removeMemberFromList,
+    updateList
 }
