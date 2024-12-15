@@ -15,7 +15,10 @@ const getList = async (req, res) => {
     const {id} = req.params
     try{
         const requiredList = await List.findById(id)
-        res.status(201).json(requiredList)
+        if (!requiredList) {
+            return res.status(404).json({ message: 'List not found' }); 
+          }
+        res.status(200).json(requiredList)
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error' })    }
 };
@@ -138,6 +141,10 @@ const updateList = async (req, res) => {
             { $set: { name: name} },
             { new: true, runValidators: true },
         )
+
+        if (!updatedList) {
+            return res.status(404).json({ message: 'List not found' }); 
+          }
                 res.status(200).json({ message: `List ${name} was updated`, list: updatedList })
 
     }
